@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하늘에서 이름이 내려오는 애니메이션</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes drop {
+            0% { transform: translateY(-20%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-black overflow-hidden">
+    <script>
+        const names = ['김미나', '김은경', '박신애', '서영현', '송희영', '양수목', '유현경', '이순주', '임아미', '우정호'];
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+        function dropName() {
+            const name = document.createElement('div');
+            name.textContent = names[Math.floor(Math.random() * names.length)];
+            name.style.color = getRandomColor();
+            name.style.position = 'absolute';
+            name.style.left = `${Math.random() * 100}%`;
+            name.style.transform = 'translateX(-50%)';
+            name.style.whiteSpace = 'nowrap';
+            name.style.animation = `drop ${Math.random() * 2 + 3}s linear infinite`;
+            document.body.appendChild(name);
+            setTimeout(() => document.body.removeChild(name), 5000);
+        }
+        setInterval(dropName, 200);
+    </script>
+</body>
+</html>
