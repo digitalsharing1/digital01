@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10분 타이머</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="text-center">
+        <div id="timer" class="text-6xl font-bold mb-8">10:00</div>
+        <button id="startTimer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            타이머 시작
+        </button>
+    </div>
+    <script>
+        const startButton = document.getElementById('startTimer');
+        const timerDisplay = document.getElementById('timer');
+        let timer = null;
+
+        startButton.addEventListener('click', () => {
+            if (timer !== null) return; // 이미 타이머가 작동 중이면 아무것도 하지 않음
+
+            let timeLeft = 10 * 60; // 10분을 초 단위로 환산
+
+            timer = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeLeft <= 0) clearInterval(timer);
+                else timeLeft--;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
